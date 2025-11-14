@@ -60,6 +60,11 @@ class DataBase:
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );""")
+        self.cur.execute("""CREATE TABLE IF NOT EXISTS questions_answers (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                question TEXT NOT NULL,
+                answer TEXT NOT NULL
+        )""")
 
     def request(self, text, params=[], commit=False):
         try:
