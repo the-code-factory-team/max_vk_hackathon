@@ -9,15 +9,20 @@ import sqlite3
 from maxapi import F, Router
 from maxapi.types import MessageCallback, CallbackButton, Command, MessageCreated, BotStarted
 from maxapi.utils.inline_keyboard import InlineKeyboardBuilder
+from utils import db
 
 help_router = Router()
 
-conn = sqlite3.connect('functions/database.db')
-cursor = conn.cursor()
+if len(db.request('SELECT * FROM questions_answers')) == 0:
+    questions_answers = [
+        ("Как посмотреть расписание",  "Выбрать раздел Студентам -> Расписание -> Сегодня / Завтра, готово"),
+        ("Как подать заявление на мат. помощь", "Выбрать раздел Студентам -> Документооборот -> Заявления -> Мат. помощь -> Подать заявление -> Прикрепить файл заявления ")
+    ]
 
-cursor.execute('SELECT * FROM questions_answers')
-rows = cursor.fetchall()
+    db.cur.executemany('INSERT INTO questions_answers (question, answer) VALUES (?, ?)', questions_answers)
+    db.con.commit()
 
+@help_router.message_created(Command("help"))
 @help_router.message_callback(F.callback.payload == "help")
 async def handle_message_help(clbck: MessageCallback):
     builder = InlineKeyboardBuilder()
@@ -37,6 +42,8 @@ async def handle_message_help(clbck: MessageCallback):
 async def handle_message_faq(clblk: MessageCallback):
     builder = InlineKeyboardBuilder()
     builder.row(CallbackButton(text='⬅️ Назад', payload="help"))
+
+    rows = db.request('SELECT * FROM questions_answers')
 
     qa_txt = ""
     for row in rows:
