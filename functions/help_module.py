@@ -6,33 +6,14 @@ https://the-code-factory-team.github.io
 """
 
 import sqlite3
-import sys
 from maxapi import F, Router
 from maxapi.types import MessageCallback, CallbackButton, Command, MessageCreated, BotStarted
 from maxapi.utils.inline_keyboard import InlineKeyboardBuilder
 
 help_router = Router()
 
-conn = sqlite3.connect('functions/faq_database.db')
+conn = sqlite3.connect('functions/database.db')
 cursor = conn.cursor()
-cursor.execute('DROP TABLE IF EXISTS questions_answers')
-conn.commit()
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS questions_answers (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    question TEXT NOT NULL,
-    answer TEXT NOT NULL
-)
-''')
-
-questions_answers = [
-    ("Как посмотреть расписание",  "Выбрать раздел Студентам -> Расписание -> Сегодня / Завтра, готово"),
-    ("Как подать заявление на мат. помощь", "Выбрать раздел Студентам -> Документооборот -> Заявления -> Мат. помощь -> Подать заявление -> Прикрепить файл заявления ")
-]
-
-cursor.executemany('INSERT INTO questions_answers (question, answer) VALUES (?, ?)', questions_answers)
-
-conn.commit()
 
 cursor.execute('SELECT * FROM questions_answers')
 rows = cursor.fetchall()
@@ -43,7 +24,7 @@ async def handle_message_help(clbck: MessageCallback):
 
     builder.row(CallbackButton(text='🆘 Связаться с поддержкой', payload="helpers"))
     builder.row(CallbackButton(text='⁉ FAQ', payload="faq"))
-    builder.row(CallbackButton(text='⬅️ Назад', payload="student"))
+    builder.row(CallbackButton(text='⬅️ Назад', payload="main_menu"))
 
     
     await clbck.message.answer(
