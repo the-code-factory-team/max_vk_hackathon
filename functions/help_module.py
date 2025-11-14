@@ -18,6 +18,7 @@ cursor = conn.cursor()
 cursor.execute('SELECT * FROM questions_answers')
 rows = cursor.fetchall()
 
+@help_router.message_created(Command("help"))
 @help_router.message_callback(F.callback.payload == "help")
 async def handle_message_help(clbck: MessageCallback):
     builder = InlineKeyboardBuilder()

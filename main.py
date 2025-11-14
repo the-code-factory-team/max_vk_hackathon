@@ -28,8 +28,9 @@ bot = Bot(config['BOT']['token'])
 dp = Dispatcher()
 dp.include_routers(router)
 dp.include_routers(schedule_router)
-dp.include_routers(docs_router)
 dp.include_routers(help_router)
+dp.include_routers(docs_router)
+
 
 @dp.bot_started()
 async def bot_started(event: BotStarted):
