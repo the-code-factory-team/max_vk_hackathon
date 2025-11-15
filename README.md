@@ -53,7 +53,7 @@ sudo docker run -p 80:80 --name my-container name_image
 ```shell
 sudo docker ps
 ```
-- Если необходимо остановить и удалить контейнеры, выполните команды stop и rm:
+- Если необходимо остановить и удалить контейнер, выполните команды stop и rm:
 ```shell
 sudo docker stop my-container && sudo docker rm my-container
 ```
