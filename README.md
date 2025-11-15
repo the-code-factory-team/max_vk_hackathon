@@ -7,9 +7,11 @@
 - [x] Python 3.11 и новее
 
 ## Инструкция по установке
-- Склонируйте проект на Ваш компьютер
-- При помощи `git clone`:
-`git clone https://github.com/the-code-factory-team/max_vk_hackathon`
+- Склонируйте проект на Ваш компьютер при помощи `git clone`:
+
+```shell
+git clone https://github.com/the-code-factory-team/max_vk_hackathon
+```
 - Или скачайте напрямую zip архив и распакуйте его в удобное для Вас место
 ### Linux
 - Если вы используете Linux системы, то вам потребуется создать виртуальное окружение, если оно уже существует, то перейдите к пункту установки библиотек
@@ -21,13 +23,17 @@ source path/to/venv/bin/activate.?
 - Вместо `activate.?` Вы должны выбрать один из скриптов в зависимости от вашей оболочки
 Например для `bash` нужно выбрать `activate`, для `fish` - `activate.fish`
 - Вы попадете в виртуальную оболчку, в которой нужно будет установить библиотеки из файла `requirements.txt`:
-`pip install -r requirements.txt`
- Теперь для **корректной работы файла main.py необходимо выбрать venv в IDE как интерпретатор**
+```shell
+pip install -r requirements.txt
+```
+- Теперь для **корректной работы файла main.py необходимо выбрать venv в IDE как интерпретатор**
  - Запустите через Ваш IDE файл `main.py`
  - [x] Готово
 ### Windows
 - Установите библиотеки из файла `requirements.txt`:
-`pip install -r requirements.txt`
+```shell
+pip install -r requirements.txt
+```
 - Запустите через Ваш IDE файл `main.py`
 - [x] Готово
 
@@ -38,7 +44,17 @@ sudo apt install docker-ce
 ```
 - Сборка и запуск
 ```shell
-sudo docker build -t name_image path/to/project
+sudo docker build -t name_image .
 sudo docker run -p 80:80 --name my-container name_image
+```
+- В команде флаг -t задает имя образа (name_image). Символ точки в конце — это путь к Dockerfile (текущая директория).
+- Для запуска в фоновом режиме добавлен флаг -d, затем осуществляется проброс портов (хост:контейнер) с флагом -p 80:80 и указывается имя контейнера с помощью –name.
+- Для проверки, что контейнеры запущены, выполните команду:
+```shell
+sudo docker ps
+```
+- Если необходимо остановить и удалить контейнеры, выполните команды stop и rm:
+```shell
+sudo docker stop my-container && sudo docker rm my-container
 ```
 - [x] Готово
