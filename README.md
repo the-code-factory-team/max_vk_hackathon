@@ -38,6 +38,6 @@ sudo apt install docker-ce
 - Сборка и запуск
 ```shell
 sudo docker build -t name_image path/to/project
-sudo docker run -d -p 80:80 --name my-container name_image
+sudo docker run -p 80:80 --name my-container name_image
 ```
 - [x] Готово
