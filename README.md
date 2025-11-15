@@ -42,19 +42,23 @@ pip install -r requirements.txt
 ```shell
 sudo apt install docker-ce
 ```
+- Для завершения настройки добавьте Вашего пользователя в группу docker, чтобы иметь возможность управлять контейнером без использования sudo.
+```shell
+sudo usermod -aG docker $USER
+```
 - Сборка и запуск
 ```shell
-sudo docker build -t name_image .
-sudo docker run -p 80:80 --name my-container name_image
+docker build -t name_image .
+docker run -p 80:80 --name my-container name_image
 ```
 - В команде флаг -t задает имя образа (name_image). Символ точки в конце — это путь к Dockerfile (текущая директория).
 - Для запуска в фоновом режиме добавлен флаг -d, затем осуществляется проброс портов (хост:контейнер) с флагом -p 80:80 и указывается имя контейнера с помощью –name.
 - Для проверки, что контейнеры запущены, выполните команду:
 ```shell
-sudo docker ps
+docker ps
 ```
 - Если необходимо остановить и удалить контейнер, выполните команды stop и rm:
 ```shell
-sudo docker stop my-container && sudo docker rm my-container
+docker stop my-container && docker rm my-container
 ```
 - [x] Готово
